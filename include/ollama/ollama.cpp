@@ -5,7 +5,7 @@ ollama::ollama(std::string modelName) : model(modelName) {
 }
 
 // Method to "ask" the AI
-void ollama::prompt(std::string userInput) {
+void ollama::prompt(std::string userInput, std::string context) {
     // method stuff here
 }
     

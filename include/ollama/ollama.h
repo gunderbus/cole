@@ -9,9 +9,10 @@ public:
     ollama(std::string modelName);
 
     // Method to "ask" the AI
-    void prompt(std::string userInput);
+    void prompt(std::string userInput, std::string context);
     
     bool getIsTrue(std::string isTrue);
+    
 
 private:
     std::string model;
