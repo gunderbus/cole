@@ -12,6 +12,9 @@ public:
     std::string getNeededPrompt(std::string Input);
     std::string getContextPath();
     std::string getConditionalPath(std:string Input);
+    void deleteNode(int loc);
+    void appendNode(node hi);
+    void getNode(int loc);
 
 private:
     
