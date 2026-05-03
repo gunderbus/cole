@@ -11,6 +11,8 @@ public:
     person(std::string name, std::string contextPath);
 
     std::string chat(std::string input);
+    std::string chat(std::string input, bool shouldTrain);
+    std::string chatReadOnly(std::string input);
     std::string viewFlowchart();
     std::string getNeededPrompt(std::string Input);
     std::string getContextPath();

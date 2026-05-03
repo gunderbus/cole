@@ -111,6 +111,14 @@ person::person(std::string name, std::string contextPath)
 }
 
 std::string person::chat(std::string input) {
+    return chat(input, true);
+}
+
+std::string person::chatReadOnly(std::string input) {
+    return chat(input, false);
+}
+
+std::string person::chat(std::string input, bool shouldTrain) {
     if (input.empty()) {
         return "Say something and I will respond.";
     }
@@ -118,7 +126,7 @@ std::string person::chat(std::string input) {
     ollama agent = ollama("llama3");
     std::string response = agent.prompt(input, getNeededPrompt(input));
 
-    if (!isBadMemory(response)) {
+    if (shouldTrain && !isBadMemory(response)) {
         learnFromUserMessage(input);
     }
 
