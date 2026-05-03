@@ -10,14 +10,18 @@ public:
     // Constructor
     person(std::string name, std::string contextPath);
 
+    std::string chat(std::string input);
     std::string getNeededPrompt(std::string Input);
     std::string getContextPath();
     std::string getConditionalPath(std::string Input);
     void deleteNode(int loc);
     void appendNode(node hi);
-    void getNode(int loc);
+    node getNode(int loc);
 
 private:
+    void loadMemory();
+    void saveMemory();
+    void learnFromConversation(std::string input, std::string response);
     
     std::string name;
     std::vector<node> connections;

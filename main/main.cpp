@@ -1,8 +1,24 @@
 #include <iostream>
+#include <string>
+
+#include "person/person.h"
 
 int main() {
-    
-    std::cout << "Dude im having such a great day" <<  std::endl;
+    person cole("Cole", "cole_context");
+    std::string input;
+
+    std::cout << "Talk to Cole. Type quit to stop." << std::endl;
+
+    while (true) {
+        std::cout << "\nYou: ";
+        std::getline(std::cin, input);
+
+        if (input == "quit" || input == "exit") {
+            break;
+        }
+
+        std::cout << "\nCole: " << cole.chat(input) << std::endl;
+    }
     
     return 0;
 }
