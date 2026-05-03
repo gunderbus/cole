@@ -17,3 +17,7 @@ int node::getPrev() const {
 std::vector<int> node::getNext() const {
     return connectors;
 }
+
+void node::addNext(int next) {
+    connectors.push_back(next);
+}

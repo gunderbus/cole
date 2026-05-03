@@ -11,6 +11,7 @@ public:
     person(std::string name, std::string contextPath);
 
     std::string chat(std::string input);
+    std::string viewFlowchart();
     std::string getNeededPrompt(std::string Input);
     std::string getContextPath();
     std::string getConditionalPath(std::string Input);
@@ -21,7 +22,10 @@ public:
 private:
     void loadMemory();
     void saveMemory();
-    void learnFromConversation(std::string input, std::string response);
+    void learnFromUserMessage(std::string input);
+    std::vector<node> getRelevantMemories(std::string input);
+    std::vector<node> getRecentMemories();
+    std::string getBroadVoiceProfile();
     
     std::string name;
     std::vector<node> connections;

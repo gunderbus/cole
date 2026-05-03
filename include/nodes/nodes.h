@@ -17,6 +17,8 @@ public:
     
     std::vector<int> getNext() const;
 
+    void addNext(int next);
+
 private:
     std::string conditional;
     int prev;
