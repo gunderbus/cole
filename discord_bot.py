@@ -9,12 +9,26 @@ ROOT = Path(__file__).resolve().parent
 COLE_BINARY = ROOT / "cole"
 
 
-def ask_cole_read_only(message: str) -> str:
+def ask_cole_read_only(
+    message: str,
+    username: str = "Unknown",
+    user_id: str = "",
+    is_dm: bool = False,
+    channel_name: str = "DMs",
+) -> str:
     if not message.strip():
         return "say something dude"
 
+    # Format user context into the message
+    context = f"[User: {username} ({user_id})"
+    if not is_dm:
+        context += f" in #{channel_name}"
+    context += "] "
+    
+    full_message = context + message
+
     result = subprocess.run(
-        [str(COLE_BINARY), "--chat-readonly", message],
+        [str(COLE_BINARY), "--chat-readonly", full_message],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -72,8 +86,19 @@ async def on_message(message):
         content = content.replace(f"<@{client.user.id}>", "")
         content = content.replace(f"<@!{client.user.id}>", "")
 
+    # Extract user context
+    username = message.author.display_name or message.author.name
+    user_id = str(message.author.id)
+    channel_name = getattr(message.channel, "name", "DMs")
+
     async with message.channel.typing():
-        response = ask_cole_read_only(content.strip())
+        response = ask_cole_read_only(
+            content.strip(),
+            username=username,
+            user_id=user_id,
+            is_dm=is_dm,
+            channel_name=channel_name,
+        )
 
     for chunk in split_discord_message(response):
         await message.reply(chunk, mention_author=False)
