@@ -12,6 +12,10 @@ person::person(std::string name, std::string contextPath)
 }
 
 std::string person::chat(std::string input) {
+    if (input.empty()) {
+        return "Say something and I will respond.";
+    }
+
     ollama agent = ollama("llama3");
     std::string response = agent.prompt(input, getNeededPrompt(input));
 
@@ -92,6 +96,10 @@ void person::saveMemory() {
 }
 
 void person::learnFromConversation(std::string input, std::string response) {
+    if (response.find("I did not get a response from Ollama") != std::string::npos) {
+        return;
+    }
+
     ollama agent = ollama("llama3");
     std::string learningPrompt =
         "Turn this conversation into one short memory or style note that will help you talk more like "
@@ -103,7 +111,13 @@ void person::learnFromConversation(std::string input, std::string response) {
 
     std::string memory = agent.prompt(learningPrompt, "You create concise chatbot memory notes.");
 
-    if (memory.empty() || memory == "NONE" || memory == "None" || memory == "none") {
+    if (
+        memory.empty()
+        || memory == "NONE"
+        || memory == "None"
+        || memory == "none"
+        || memory.find("I did not get a response from Ollama") != std::string::npos
+    ) {
         return;
     }
 
