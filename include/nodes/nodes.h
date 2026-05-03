@@ -6,20 +6,16 @@
 
 class node {
 
-// public vars
 public:
 
     // Constructor
-    node(std::string conditional, int prev, std::vector<int> connectors)
-        : conditional(conditional), prev(prev), connectors(connectors) {}
+    node(std::string conditional, int prev, std::vector<int> connectors);
 
-    int getPrev() const {
-        return prev;
-    }
+    std::string getConditional() const;
+
+    int getPrev() const;
     
-    std::vector<int> getNext() const {
-        return connectors;
-    }
+    std::vector<int> getNext() const;
 
 private:
     std::string conditional;
