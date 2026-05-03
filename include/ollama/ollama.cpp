@@ -103,8 +103,8 @@ ollama::ollama(std::string modelName) : model(modelName) {
 // Method to "ask" the AI
 std::string ollama::prompt(std::string userInput, std::string context) {
     std::string fullPrompt = context + "\n\nUser: " + userInput + "\nAssistant:";
-    std::string body = "{\"model\":\"" + escapeJson(model) + "\",\"prompt\":\"" + escapeJson(fullPrompt) + "\"}";
-    std::string command = "curl -s " + endpoint + " -d " + escapeShell(body);
+    std::string body = "{\"model\":\"" + escapeJson(model) + "\",\"prompt\":\"" + escapeJson(fullPrompt) + "\",\"stream\":false}";
+    std::string command = "curl -s --max-time 30 " + endpoint + " -d " + escapeShell(body);
     std::array<char, 256> buffer;
     std::string output;
     FILE* pipe = popen(command.c_str(), "r");
