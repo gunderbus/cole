@@ -11,7 +11,9 @@ int main() {
 
     while (true) {
         std::cout << "\nYou: ";
-        std::getline(std::cin, input);
+        if (!std::getline(std::cin, input)) {
+            break;
+        }
 
         if (input == "quit" || input == "exit") {
             break;
