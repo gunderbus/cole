@@ -2,6 +2,7 @@
 #define PERSON_H
 
 #include <string>
+#include <vector>
 #include "nodes/nodes.h"
 
 class person {
@@ -11,15 +12,17 @@ public:
 
     std::string getNeededPrompt(std::string Input);
     std::string getContextPath();
-    std::string getConditionalPath(std:string Input);
+    std::string getConditionalPath(std::string Input);
     void deleteNode(int loc);
     void appendNode(node hi);
     void getNode(int loc);
 
 private:
     
+    std::string name;
     std::vector<node> connections;
-    str::string contextPath;
+    std::string contextPath;
+    std::vector<node> connectionsPath;
 
 };
 
